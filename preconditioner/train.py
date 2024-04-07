@@ -62,18 +62,18 @@ def _train(model, criterion, optimizer, writer, device):
 
 def main():
     torch.manual_seed(CFG['SEED'])
-    torch.set_num_threads(CFG['N_THREADS'])
-    device = torch.device(CFG['DEVICE'])
+    torch.set_num_threads(CFG['N_THREADS']) #CPU Cores to use 
+    device = torch.device(CFG['DEVICE']) #TPU/GPU/CPU(s)?
 
-    model = PrecondNet().to(device)
-    optimizer = torch.optim.Adam(model.parameters())
-    writer = SummaryWriter()
-    writer.add_hparams(CFG, metric_dict={})
+    model = PrecondNet().to(device) #Assigns preconstructed model to train on selected device
+    optimizer = torch.optim.Adam(model.parameters()) #Links optimizer and model parameters 
+    writer = SummaryWriter() #Writes events and summaries for tensorboard use
+    writer.add_hparams(CFG, metric_dict={}) #Records hyperparameters in CFG for tensorboard use
 
-    _train(model, condition_loss, optimizer, writer, device)
-    test(model, writer, device)
+    _train(model, condition_loss, optimizer, writer, device) #trains model
+    test(model, writer, device) # tests model
 
-    writer.close()
+    writer.close() # finalizes and closes tensorboard writer
     return True
 
 
