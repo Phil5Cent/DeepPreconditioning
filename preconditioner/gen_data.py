@@ -78,7 +78,10 @@ def _sludge():
         _sludge_pattern()
 
         # Run simulation and dump matrix.
-        subprocess.call(['../foam/sim/Allrun'])
+        #import os
+        #print(os.getcwd())
+        
+        subprocess.call(['bash', '../foam/sim/Allrun'])
         l_matrix = is_positive_definite('L.csv')
         save_npz('./data/L'+str(idx).zfill(3)+'.npz', l_matrix)
     return True
