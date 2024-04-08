@@ -74,8 +74,6 @@ def main():
     test(model, writer, device) # tests model
 
     writer.close() # finalizes and closes tensorboard writer
-
-    #delete this line
     return True
 
 
